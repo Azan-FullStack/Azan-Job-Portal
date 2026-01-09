@@ -1,0 +1,100 @@
+.job-card{
+    width: 400px;
+    height:500px;
+    border: 1px solid balck;
+    
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px; 
+    padding: 2px;
+
+    
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.job-serial{
+    width: 95%;
+    margin:auto;
+    height:10%;
+    border: 1px solid black;
+    font-size: 20px;
+     border-radius: 5px; 
+}
+
+
+.job-title{
+    width: 95%;
+    margin:auto;
+    height:10%;
+     border: 1px solid black;
+     font-size: 20px;
+      border-radius: 5px; 
+    
+}
+      .job-description{
+        width: 95%;
+    margin:auto;
+    height:40%;
+     border: 1px solid black;
+     font-size: 20px;
+      border-radius: 5px; 
+      }
+      .job-salary{
+        width: 95%;
+    margin:auto;
+    height:10%;
+     border: 1px solid black;
+     font-size: 20px;
+      border-radius: 5px; 
+      }
+      .job-working-hours{
+        width: 95%;
+    margin:auto;
+    height:10%;
+     border: 1px solid black;
+     font-size: 20px;
+      border-radius: 5px; 
+      }
+      .job-location{
+        width: 95%;
+    margin:auto;
+    height:10%;
+     border: 1px solid black;
+     font-size: 20px;
+      border-radius: 5px; 
+      }
+
+      .delete-btn{
+        background-color: rgb(176, 99, 99);
+        font-size: 1.2rem;
+        border-radius: 10%;
+
+
+      }
+
+
+
+      .edit-btn{
+        background-color:    rgb(84, 84, 158);
+        font-size: 1.2rem;
+        border-radius: 10%;
+
+      }
+
+
+
+      .apply-btn2{
+        background-color: green;
+        font-size: 1.2rem;
+        border-radius: 10%;
+      }
+
+
+
+
+
+
+
+
+      
