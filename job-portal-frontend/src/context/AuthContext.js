@@ -1,15 +1,24 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
+// Use HTTPS URL of your backend
+const API = process.env.REACT_APP_API_URL || "https://azan-job-portal.onrender.com/api/auth";
+
 const AuthContext = createContext();
-const API = "http://azan-job-portal.onrender.com/api/auth";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
+  // Login
   const login = async (email, password) => {
     try {
-      const res = await axios.post(`${API}/login`, { email, password });
+      const res = await axios.post(
+        `${API}/login`,
+        { email, password },
+        { withCredentials: true } // IMPORTANT for cookies
+      );
       setUser(res.data.user);
       localStorage.setItem("user", JSON.stringify(res.data.user));
     } catch (err) {
@@ -18,10 +27,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Signup
   const signup = async (username, email, password) => {
-    if (!username || !email || !password) return alert("All fields are required");
+    if (!username || !email || !password)
+      return alert("All fields are required");
     try {
-      const res = await axios.post(`${API}/signup`, { username, email, password });
+      const res = await axios.post(
+        `${API}/signup`,
+        { username, email, password },
+        { withCredentials: true } // IMPORTANT for cookies
+      );
       setUser(res.data.user);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       alert("Signup successful!");
@@ -31,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Logout
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -44,6 +60,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
 
 
 
