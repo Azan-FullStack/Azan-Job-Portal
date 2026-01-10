@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
-const API = "http://localhost:5000/api/auth";
+const API = "http://azan-job-portal.onrender.com/api/auth";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
