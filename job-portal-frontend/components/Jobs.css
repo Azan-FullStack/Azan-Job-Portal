@@ -1,5 +1,0 @@
-.job-display-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-  gap: 20px; /* space between cards */
-}
