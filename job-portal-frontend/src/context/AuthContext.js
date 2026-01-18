@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
-// Use HTTPS URL of your backend
-const API = process.env.REACT_APP_API_URL || "https://azan-job-portal.onrender.com/api/auth";
+// HTTPS URL of your backend
+const API = "https://azan-job-portal.onrender.com/api/auth";
 
 const AuthContext = createContext();
 
@@ -14,35 +14,31 @@ export const AuthProvider = ({ children }) => {
   // Login
   const login = async (email, password) => {
     try {
-      const res = await axios.post(
-        `${API}/login`,
-        { email, password },
-        { withCredentials: true } // IMPORTANT for cookies
-      );
+      const res = await axios.post(`${API}/login`, { email, password });
       setUser(res.data.user);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      return res.data.user;
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Login failed");
+      // Show error from backend if available
+      throw new Error(err.response?.data?.message || "Login failed");
     }
   };
 
   // Signup
   const signup = async (username, email, password) => {
-    if (!username || !email || !password)
-      return alert("All fields are required");
+    if (!username || !email || !password) {
+      throw new Error("All fields are required");
+    }
+
     try {
-      const res = await axios.post(
-        `${API}/signup`,
-        { username, email, password },
-        { withCredentials: true } // IMPORTANT for cookies
-      );
+      const res = await axios.post(`${API}/signup`, { username, email, password });
       setUser(res.data.user);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      alert("Signup successful!");
+      return res.data.user;
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Signup failed");
+      throw new Error(err.response?.data?.message || "Signup failed");
     }
   };
 
@@ -60,6 +56,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
 
 
 

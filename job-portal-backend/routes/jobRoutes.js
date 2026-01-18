@@ -11,7 +11,7 @@ router.post("/", auth, async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-});
+});                   
 
 // Get all jobs
 router.get("/", async (req, res) => {

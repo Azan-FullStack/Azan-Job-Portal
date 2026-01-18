@@ -1,6 +1,6 @@
 import React from 'react'
 
-const About = () => {
+const About = () => { 
   return (
     <>
             <h1>About This Job Portal</h1>

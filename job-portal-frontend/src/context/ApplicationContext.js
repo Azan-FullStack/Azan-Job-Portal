@@ -15,7 +15,7 @@ export const ApplicationProvider = ({ children }) => {
   const fetchApplications = useCallback(async () => {
     const res = await axios.get(API);
     setAppliedJobs(res.data);
-  }, []);
+  }, []);   
 
   return (
     <ApplicationContext.Provider
