@@ -16,11 +16,13 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "http://localhost:3002", // ✅ ADD THIS
       "https://azan-job-portal-6cgc.vercel.app"
     ],
-    credentials: false // ⛔ TURN OFF cookies for now
+    credentials: false
   })
 );
+
 
 app.use(express.json());
 

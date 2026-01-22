@@ -6,15 +6,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await login(email, password);
-      alert("Login successful!");
-    } catch {
-      alert("Login failed");
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await login(email, password);
+    alert("Login successful!");
+  } catch (err) {
+    // Check if backend sent a response
+    if (err.response) {
+      // Backend responded with a status code (like 401 or 400)
+      alert(err.response.data.message || "Login failed");
+    } else if (err.request) {
+      // Request was made but no response received
+      alert("Network error: Could not reach server");
+    } else {
+      // Something else happened
+      alert("Error: " + err.message);
     }
-  };
+    console.error(err); // Always log to console for debugging
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit}>

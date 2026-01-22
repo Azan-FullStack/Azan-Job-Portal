@@ -14,6 +14,10 @@ const Jobs = () => {
     fetchAllJobs();
   }, [fetchAllJobs]);
 
+
+  console.log(jobs);
+  
+
   return (
     
     <div className="job-display-section">

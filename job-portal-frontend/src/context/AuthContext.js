@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
-// HTTPS URL of your backend
 const API = "https://azan-job-portal.onrender.com/api/auth";
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -11,38 +9,41 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  // Login
+  // LOGIN
   const login = async (email, password) => {
-    try {
-      const res = await axios.post(`${API}/login`, { email, password });
-      setUser(res.data.user);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      return res.data.user;
-    } catch (err) {
-      console.error(err);
-      // Show error from backend if available
-      throw new Error(err.response?.data?.message || "Login failed");
-    }
+    const res = await axios.post(`${API}/login`, { email, password });
+
+    const userWithToken = {
+      ...res.data.user,
+      token: res.data.token,
+    };
+
+    setUser(userWithToken);
+    localStorage.setItem("user", JSON.stringify(userWithToken));
+
+    return userWithToken;
   };
 
-  // Signup
+  // SIGNUP
   const signup = async (username, email, password) => {
-    if (!username || !email || !password) {
-      throw new Error("All fields are required");
-    }
+    const res = await axios.post(`${API}/signup`, {
+      username,
+      email,
+      password,
+    });
 
-    try {
-      const res = await axios.post(`${API}/signup`, { username, email, password });
-      setUser(res.data.user);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      return res.data.user;
-    } catch (err) {
-      console.error(err);
-      throw new Error(err.response?.data?.message || "Signup failed");
-    }
+    const userWithToken = {
+      ...res.data.user,
+      token: res.data.token,
+    };
+
+    setUser(userWithToken);
+    localStorage.setItem("user", JSON.stringify(userWithToken));
+
+    return userWithToken;
   };
 
-  // Logout
+  // LOGOUT
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");

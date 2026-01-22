@@ -49,6 +49,7 @@ router.post("/signup", async (req, res) => {
 });
 
 // Login
+// Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -67,14 +68,25 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    // ✅ ADD THIS BEFORE sending response
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,        // must be true for HTTPS (production)
+      sameSite: "none",    // allow cross-origin cookie
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
+    // now respond
     res.json({
-      user: { _id: user._id, username: user.username, email },
-      token
+      user: { _id: user._id, username: user.username, email }
+      // token is optional now because it's in the cookie
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
+
 
 module.exports = router;
 
