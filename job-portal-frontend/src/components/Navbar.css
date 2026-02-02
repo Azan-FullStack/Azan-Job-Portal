@@ -7,6 +7,14 @@ nav {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+
 }
 
 .logo {
