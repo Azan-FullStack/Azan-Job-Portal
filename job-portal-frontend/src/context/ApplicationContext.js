@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useCallback } from "react";
 import axios from "axios";
 
 const ApplicationContext = createContext();
-const API = "https://azan-job-portal.onrender.com/api/applications";
+const API = "http://localhost:5000/api/applications";
 
 export const ApplicationProvider = ({ children }) => {
   const [appliedJobs, setAppliedJobs] = useState([]);

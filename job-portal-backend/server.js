@@ -16,10 +16,11 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "http://localhost:3001",
       "http://localhost:3002", // ✅ ADD THIS
-      "https://azan-job-portal-6cgc.vercel.app"
+      "https://azan-job-portal-htga.vercel.app"
     ],
-    credentials: false
+    credentials: true
   })
 );
 

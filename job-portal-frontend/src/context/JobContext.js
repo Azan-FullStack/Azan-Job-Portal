@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "./AuthContext";
 
 const JobContext = createContext();
-const API = "https://azan-job-portal.onrender.com/api/jobs";
+const API = "http://localhost:5000/api/jobs";
 
 export const JobProvider = ({ children }) => {
   const { user } = useAuth();

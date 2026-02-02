@@ -50,36 +50,36 @@ router.post("/signup", async (req, res) => {
 
 // Login
 // Login
+// Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // 1️⃣ Find user by email
     const user = await User.findOne({ email });
     if (!user)
       return res.status(401).json({ message: "Invalid credentials" });
 
+    // 2️⃣ Compare password
     const match = await bcrypt.compare(password, user.password);
     if (!match)
       return res.status(401).json({ message: "Invalid credentials" });
 
+    // 3️⃣ Create JWT token
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // ✅ ADD THIS BEFORE sending response
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,        // must be true for HTTPS (production)
-      sameSite: "none",    // allow cross-origin cookie
-      maxAge: 24 * 60 * 60 * 1000 // 1 day
-    });
-
-    // now respond
+    // 4️⃣ Respond with user info + token
     res.json({
-      user: { _id: user._id, username: user.username, email }
-      // token is optional now because it's in the cookie
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email
+      },
+      token // send token in JSON
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -88,7 +88,5 @@ router.post("/login", async (req, res) => {
 
 
 
+
 module.exports = router;
-
-
-
